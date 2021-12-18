@@ -9,6 +9,16 @@ import { Home, Login, Signup, User } from "./Pages";
 require("dotenv").config();
 
 function App() {
+  const dispatch = useDispatch();
+
+  //logout user when token is expired
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token && jwtDecode(token).exp * 1000 < Date.now()) {
+      dispatch(logout());
+    }
+  }, [dispatch]);
+
   return (
     <div className="App">
       <Routes>
