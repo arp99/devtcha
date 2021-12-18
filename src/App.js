@@ -1,5 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import jwtDecode from "jwt-decode";
+import "./App.css";
+import { useDispatch } from "react-redux";
+import { logout } from "./app/Features/auth/authSlice";
+import { Route, Routes } from "react-router";
+import { PrivateRoute } from "./PrivateRoute/privateRoute";
+import { Home, Login, Signup, User } from "./Pages";
+require("dotenv").config();
 
 function App() {
   return (
