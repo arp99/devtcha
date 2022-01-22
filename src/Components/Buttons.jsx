@@ -1,6 +1,6 @@
 import ClipLoader from "react-spinners/ClipLoader";
 
-export const Button = ({ children, variant, size, state }) => {
+export const Button = ({ children, variant, size, state, ...props }) => {
   return (
     <button
       className={`w-max rounded-md shadow-xl ${
@@ -18,6 +18,7 @@ export const Button = ({ children, variant, size, state }) => {
         ${size === "xSmall" && `py-1 px-2`}
         ${state === "fulfilled" && `cursor-not-allowed`}
         `}
+      {...props}
     >
       {state === "loading" ? (
         <>
