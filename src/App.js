@@ -6,7 +6,6 @@ import { logout } from "./app/Features/auth/authSlice";
 import { Route, Routes } from "react-router";
 import { PrivateRoute } from "./PrivateRoute/privateRoute";
 import { Home, Login, Signup, User } from "./Pages";
-require("dotenv").config();
 
 function App() {
   const dispatch = useDispatch();
