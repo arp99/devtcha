@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5500/api/",
+  baseURL: "https://devtcha-backend.herokuapp.com/api/",
 });
 
 export const axiosAuthorization = axios.create({
-  baseURL: "http://localhost:5500/api/",
+  baseURL: "https://devtcha-backend.herokuapp.com/api/",
 });
 
 axiosAuthorization.interceptors.request.use((config) => {
