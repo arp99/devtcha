@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
+import { FaGithub } from "react-icons/fa";
 import { login } from "../../app/Features/auth/authSlice";
 import {
   StyledError,
@@ -49,6 +50,9 @@ export const Login = () => {
       <FlexCenter>
         <Form>
           <FormContainer>
+            <h3 className="text-xl font-medium text-primary-700">
+              Login in to our account
+            </h3>
             <InputGroup>
               <label htmlFor="email">Email</label>
               <Field type="email" id="email" name="email" autoComplete="off" />
@@ -68,10 +72,14 @@ export const Login = () => {
               <Button
                 type="submit"
                 variant="primary"
-                size="large"
+                size="full"
                 state={loggedInStatus}
               >
                 Login
+              </Button>
+              <p className="text-center text-sm font-medium">Or</p>
+              <Button type="submit" variant="github" size="full">
+                <FaGithub /> Login with Github
               </Button>
               <p>
                 Don't have Account? <Link to="/signup">Register</Link>
