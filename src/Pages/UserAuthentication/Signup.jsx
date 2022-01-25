@@ -95,7 +95,7 @@ export const Signup = () => {
               <Button
                 type="submit"
                 variant="primary"
-                size="large"
+                size="full"
                 state={signupStatus}
               >
                 Signup

@@ -42,14 +42,14 @@ export const Login = () => {
   }, [token, navigate]);
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleLogin}
-      validationSchema={validationSchema}
-    >
-      <FlexCenter>
-        <Form>
-          <FormContainer>
+    <FlexCenter>
+      <FormContainer>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleLogin}
+          validationSchema={validationSchema}
+        >
+          <Form>
             <h3 className="text-xl font-medium text-primary-700">
               Login in to our account
             </h3>
@@ -77,17 +77,19 @@ export const Login = () => {
               >
                 Login
               </Button>
-              <p className="text-center text-sm font-medium">Or</p>
-              <Button type="submit" variant="github" size="full">
-                <FaGithub /> Login with Github
-              </Button>
-              <p>
-                Don't have Account? <Link to="/signup">Register</Link>
-              </p>
             </InputGroup>
-          </FormContainer>
-        </Form>
-      </FlexCenter>
-    </Formik>
+          </Form>
+        </Formik>
+        <InputGroup>
+        <p className="text-center text-sm font-medium mb-2">Or</p>
+          <Button variant="github" size="full">
+            <FaGithub /> Login with Github
+          </Button>
+          <p className="my-2">
+            Don't have Account? <Link to="/signup">Register</Link>
+          </p>
+        </InputGroup>
+      </FormContainer>
+    </FlexCenter>
   );
 };
