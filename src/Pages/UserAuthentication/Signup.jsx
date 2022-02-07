@@ -1,6 +1,7 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { signup } from "../../app/Features/auth/authSlice";
 import { FlexCenter, Button } from "../../Components";
@@ -13,6 +14,7 @@ import {
 const initialValues = {
   firstName: "",
   lastName: "",
+  userName: "",
   email: "",
   password: "",
 };
@@ -29,13 +31,22 @@ const validationSchema = Yup.object({
 });
 
 export const Signup = () => {
-  const signupDispatch = useDispatch();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { signupStatus } = useSelector((state) => state.auth);
 
   const handleSignup = (values) => {
     const { firstName, lastName, email, password, userName } = values;
-    signupDispatch(signup({ firstName, lastName, email, password, userName }));
+    dispatch(signup({ firstName, lastName, email, password, userName }));
   };
+
+  useEffect(() => {
+    if (signupStatus === "fulfilled") {
+      setTimeout(() => {
+        navigate("/login");
+      }, 500);
+    }
+  }, [navigate, signupStatus]);
 
   return (
     <Formik
