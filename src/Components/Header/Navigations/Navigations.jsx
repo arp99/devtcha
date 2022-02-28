@@ -10,7 +10,10 @@ export const Navigations = () => {
         <Messages />
         <Notifications />
         <Display />
-        <Profile />
+        <Profile
+          style={{ width: "50px", height: "30px", cursor: "pointer" }}
+          className="rounded-full transition-transform hover:scale-[.80]"
+        />
       </div>
     </div>
   );
