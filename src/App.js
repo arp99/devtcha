@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import jwtDecode from "jwt-decode";
+import "./App.css";
+import { useDispatch } from "react-redux";
+import { logout } from "./app/Features/auth/authSlice";
+import { Route, Routes } from "react-router";
+import { PrivateRoute } from "./PrivateRoute/privateRoute";
+import { Home, Login, Signup, User } from "./Pages";
 
 function App() {
+  const dispatch = useDispatch();
+
+  //logout user when token is expired
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token && jwtDecode(token).exp * 1000 < Date.now()) {
+      dispatch(logout());
+    }
+  }, [dispatch]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/user"
+          element={
+            <PrivateRoute>
+              <User />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
     </div>
   );
 }
