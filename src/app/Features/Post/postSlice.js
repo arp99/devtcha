@@ -1,19 +1,27 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { createPostService } from "./services/postServices";
+import { createPostService, getAllPostsService } from "./services/postServices";
 
 export const createPost = createAsyncThunk(
   "post/createPost",
   async ({ content }) => {
-    console.log({ content })
     const response = await createPostService(content);
     console.log("From post async thunk : ", { response });
     return response.data;
   }
 );
 
+export const getAllPosts = createAsyncThunk("post/getAllPosts", async () => {
+  const response = await getAllPostsService();
+  console.log("From getAllpost async thunk: ", { response });
+  return response.data;
+});
+
 const postInitialState = {
+  allPosts: [],
   createPostStatus: "idle",
   createPostError: null,
+  fetchPostStatus: "idle",
+  fetchPostError: null,
 };
 
 export const postSlice = createSlice({
@@ -21,8 +29,8 @@ export const postSlice = createSlice({
   initialState: postInitialState,
   reducers: {
     resetPostStatus: (state) => {
-      state.createPostError = null;
-      state.createPostStatus = "idle";
+      state.createPostError = state.fetchPostError = null;
+      state.createPostStatus = state.fetchPostStatus = "idle";
     },
   },
   extraReducers: {
@@ -37,6 +45,19 @@ export const postSlice = createSlice({
     },
     [createPost.rejected]: (state) => {
       state.createPostStatus = state.createPostError = "error";
+    },
+    [getAllPosts.pending]: (state) => {
+      state.fetchPostStatus = "loading";
+      state.fetchPostError = null;
+    },
+    [getAllPosts.fulfilled]: (state, action) => {
+      console.log("Inside extra reducer of getAllpost: ", action.payload);
+      state.allPosts = action.payload.posts
+      state.fetchPostStatus = "fulfilled";
+      state.fetchPostError = null;
+    },
+    [getAllPosts.rejected]: (state) => {
+      state.fetchPostStatus = state.fetchPostError = "error";
     },
   },
 });

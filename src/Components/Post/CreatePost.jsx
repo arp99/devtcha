@@ -2,7 +2,11 @@ import { ProfileImage } from "../Header/Navigations/Profile/profileImage";
 import { Button } from "../Buttons";
 import { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { createPost, resetPostStatus } from "../../app/Features/Post/postSlice";
+import {
+  createPost,
+  resetPostStatus,
+  getAllPosts,
+} from "../../app/Features/Post/postSlice";
 
 export const CreatePost = () => {
   const [postValue, setPostValue] = useState([]);
@@ -15,6 +19,7 @@ export const CreatePost = () => {
     childNodes.forEach((childNode) => postRef.current.removeChild(childNode));
 
     postDispatch(resetPostStatus());
+    postDispatch(getAllPosts());
   }
 
   const userInputHandler = (evt) => {
