@@ -7,3 +7,7 @@ export const createPostService = async (content) => {
 };
 
 export const getAllPostsService = async () => axiosAuthorization.get("post");
+
+export const addReactionService = async (postId, reaction) => {
+  return axiosAuthorization.post(`post/${postId}/${reaction}`);
+};

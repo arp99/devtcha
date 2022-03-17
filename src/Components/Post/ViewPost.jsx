@@ -1,9 +1,10 @@
 import { ProfileImage } from "../Header/Navigations/Profile/profileImage";
+import { useDispatch } from "react-redux";
+import { addReaction } from "../../app/Features/Post/postSlice";
 
 export const ViewPost = ({ post }) => {
-  console.log(post);
-  const { content, user } = post;
-  // Each items in contents becomes a paragraph element
+  const postDispatch = useDispatch();
+  const { content, user, _id: postId, reactions } = post;
   return (
     <div className="w-full h-full rounded-md border border-primary-700 mb-2">
       <div className="h-full w-full flex">
@@ -33,17 +34,37 @@ export const ViewPost = ({ post }) => {
         </div>
       </div>
       <div className="h-14 w-full p-2 px-6 flex justify-evenly">
-        <button className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200">
-          ❤ <span>0</span>
+        <button
+          className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200"
+          onClick={() =>
+            postDispatch(addReaction({ postId, reaction: "love" }))
+          }
+        >
+          ❤ <span>{reactions["love"].length}</span>
         </button>
-        <button className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200">
-          🚀 <span>0</span>
+        <button
+          className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200"
+          onClick={() =>
+            postDispatch(addReaction({ postId, reaction: "rocket" }))
+          }
+        >
+          🚀 <span>{reactions["rocket"].length}</span>
         </button>
-        <button className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200">
-          🎉 <span>0</span>
+        <button
+          className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200"
+          onClick={() =>
+            postDispatch(addReaction({ postId, reaction: "celebrate" }))
+          }
+        >
+          🎉 <span>{reactions["celebrate"].length}</span>
         </button>
-        <button className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200">
-          👀 <span>0</span>
+        <button
+          className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200"
+          onClick={() =>
+            postDispatch(addReaction({ postId, reaction: "confused" }))
+          }
+        >
+          👀 <span>{reactions["confused"].length}</span>
         </button>
       </div>
     </div>
