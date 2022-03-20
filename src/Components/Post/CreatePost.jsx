@@ -1,10 +1,26 @@
 import { ProfileImage } from "../Header/Navigations/Profile/profileImage";
 import { Button } from "../Buttons";
 import { useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  createPost,
+  resetPostStatus,
+  getAllPosts,
+} from "../../app/Features/Post/postSlice";
 
 export const CreatePost = () => {
   const [postValue, setPostValue] = useState([]);
   const postRef = useRef(null);
+  const { createPostStatus } = useSelector((state) => state.post);
+  const postDispatch = useDispatch();
+  if (createPostStatus === "fulfilled") {
+    // Remove all children of content editable div
+    const childNodes = postRef.current.childNodes;
+    childNodes.forEach((childNode) => postRef.current.removeChild(childNode));
+
+    postDispatch(resetPostStatus());
+    postDispatch(getAllPosts());
+  }
 
   const userInputHandler = (evt) => {
     if (evt.key === "Enter") {
@@ -49,8 +65,16 @@ export const CreatePost = () => {
             variant={"primary"}
             size={"large"}
             className={`ml-auto ${
-              postValue.length === 0 && "cursor-not-allowed"
+              postValue.length === 0
+                ? "cursor-not-allowed disabled:opacity-60"
+                : ""
             }`}
+            state={createPostStatus}
+            onClick={() => {
+              setPostValue([]);
+              postDispatch(createPost({ content: postValue }));
+            }}
+            disabled={postValue.length === 0 ? true : false}
           >
             Post
           </Button>
