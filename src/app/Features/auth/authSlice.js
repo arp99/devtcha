@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { ActionTypes } from "../../../Components/Constants/ActionTypes";
+import { Notify } from "../../../Components/Notification/Notification";
 import {
   loginUser,
   signupUser,
@@ -72,6 +74,7 @@ export const authSlice = createSlice({
       state.userId = null;
       state.loggedInStatus = "idle";
       state.loggedInError = null;
+      Notify(ActionTypes.LOGOUT_SUCCESS, "Logout Succesfull");
     },
     resetAuthStatus: (state) => {
       state.loggedInError = null;
@@ -92,9 +95,11 @@ export const authSlice = createSlice({
       state.loggedInStatus = "fulfilled";
       localStorage.setItem("token", token);
       localStorage.setItem("id", userId);
+      Notify(ActionTypes.LOGIN_SUCCESS, "Login Successfull");
     },
     [login.rejected]: (state) => {
       state.loggedInStatus = state.loggedInError = "error";
+      Notify(ActionTypes.LOGIN_ERROR, "Unable to Login")
     },
     [signup.pending]: (state) => {
       state.signupStatus = "loading";
@@ -103,9 +108,11 @@ export const authSlice = createSlice({
     [signup.fulfilled]: (state, action) => {
       console.log("From extra reducers in signup:", action.payload);
       state.signupStatus = "fulfilled";
+      Notify(ActionTypes.SIGNUP_SUCCESS, "Successfully registered");
     },
     [signup.rejected]: (state) => {
       state.signupStatus = state.signupError = "error";
+      Notify(ActionTypes.SIGNUP_ERROR, "Error in registration");
     },
   },
 });
