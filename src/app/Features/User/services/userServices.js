@@ -28,3 +28,7 @@ export const uploadImage = async (uploadedImage) => {
     return Promise.reject(new Error(err.message));
   }
 };
+
+export const profileSuggestionService = async () => {
+  return axiosAuthorization.get("user/suggestion")
+}
