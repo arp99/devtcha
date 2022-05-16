@@ -6,6 +6,8 @@ import { logout } from "./app/Features/auth/authSlice";
 import { Route, Routes } from "react-router";
 import { PrivateRoute } from "./PrivateRoute/privateRoute";
 import { Home, Login, Signup, User } from "./Pages";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +22,7 @@ function App() {
 
   return (
     <div className="App">
+      <ToastContainer limit={1} autoClose={1500} />
       <Routes>
         <Route
           path="/"
