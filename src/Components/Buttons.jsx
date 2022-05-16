@@ -6,6 +6,7 @@ export const Button = ({
   size,
   state,
   className,
+  loaderColor="white",
   ...props
 }) => {
   return (
@@ -38,7 +39,7 @@ export const Button = ({
     >
       {state === "loading" ? (
         <>
-          Please Wait <ClipLoader size={15} color="white" loading={true} />
+          Please Wait <ClipLoader size={15} color={loaderColor} loading={true} />
         </>
       ) : (
         children

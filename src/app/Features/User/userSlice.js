@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   fetchUserData,
   uploadImage,
+  profileSuggestionService,
 } from "./services/userServices";
 
 //fetch current user data
@@ -21,6 +22,15 @@ export const updateProfileImage = createAsyncThunk(
   }
 );
 
+// Get user profile suggestions
+export const getProfileSuggestions = createAsyncThunk(
+  "user/getProfileSuggestions",
+  async () => {
+    const response = await profileSuggestionService();
+    console.log("Inside getProfileSuggestions async thunk: ", response.data);
+    return response.data;
+  }
+);
 
 const userInitialState = {
   firstName: "",
@@ -32,6 +42,9 @@ const userInitialState = {
   following: [],
   status: "idle",
   profileImageStatus: "idle",
+  profileSuggestions: [],
+  profileSuggestionStatus: "idle",
+  profileSuggestionError: null,
   profileImageUploadError: null,
   error: null,
 };
@@ -84,6 +97,22 @@ export const userSlice = createSlice({
     },
     [updateProfileImage.rejected]: (state) => {
       state.profileImageStatus = state.profileImageUploadError = "error";
+    },
+    [getProfileSuggestions.pending]: (state) => {
+      state.profileSuggestionStatus = "loading";
+      state.profileSuggestionError = null;
+    },
+    [getProfileSuggestions.fulfilled]: (state, action) => {
+      console.log(
+        "Inside extraReducers of getProfileSuggestions: ",
+        action.payload
+      );
+      state.profileSuggestions = action.payload.suggestedProfiles;
+      state.profileSuggestionStatus = "fulfilled";
+      state.profileSuggestionError = null;
+    },
+    [getProfileSuggestions.rejected]: (state) => {
+      state.profileSuggestionStatus = state.profileSuggestionError = "error";
     },
   },
 });
