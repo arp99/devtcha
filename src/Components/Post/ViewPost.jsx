@@ -6,7 +6,7 @@ export const ViewPost = ({ post }) => {
   const postDispatch = useDispatch();
   const { content, user, _id: postId, reactions } = post;
   return (
-    <div className="w-full h-full rounded-md border border-primary-700 mb-2">
+    <div className="w-full h-max rounded-md border border-primary-700 mb-2">
       <div className="h-full w-full flex">
         <div className="h-full w-1/5 flex justify-center py-4">
           <ProfileImage
@@ -25,8 +25,8 @@ export const ViewPost = ({ post }) => {
                 </p>
               </div>
               <div className="w-full p-2">
-                {content.map((lines) => (
-                  <p>{lines}</p>
+                {content.map((lines, index) => (
+                  <p key={index + Math.random()}>{lines}</p>
                 ))}
               </div>
             </div>
