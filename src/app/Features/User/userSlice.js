@@ -1,9 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { ActionTypes } from "../../../Components/Constants/ActionTypes";
+import { Notify } from "../../../Components/Notification/Notification";
 import {
   fetchUserData,
   uploadImage,
   profileSuggestionService,
+  followUserService,
+  unFollowUserService,
 } from "./services/userServices";
+import { removeFollowedUser } from "./utils/userUtils";
 
 //fetch current user data
 export const getUserData = createAsyncThunk("user/getUserData", async () => {
@@ -32,6 +37,25 @@ export const getProfileSuggestions = createAsyncThunk(
   }
 );
 
+// Follow user
+export const followUser = createAsyncThunk(
+  "user/followUser",
+  async ({ userToFollowId }) => {
+    const response = await followUserService(userToFollowId);
+    console.log("Inside followUser async thunk: ", response.data);
+    return response.data;
+  }
+);
+
+export const unFollowUser = createAsyncThunk(
+  "user/unFollowUser",
+  async ({ userToUnfollowId }) => {
+    const response = await unFollowUserService(userToUnfollowId);
+    console.log("Inside unFollowUser async thunk: ", response.data);
+    return response.data;
+  }
+);
+
 const userInitialState = {
   firstName: "",
   lastName: "",
@@ -44,8 +68,12 @@ const userInitialState = {
   profileImageStatus: "idle",
   profileSuggestions: [],
   profileSuggestionStatus: "idle",
+  followUserStatus: "idle",
+  unFollowUserStatus: "idle",
   profileSuggestionError: null,
   profileImageUploadError: null,
+  followUserError: null,
+  unFollowUserError: null,
   error: null,
 };
 
@@ -113,6 +141,24 @@ export const userSlice = createSlice({
     },
     [getProfileSuggestions.rejected]: (state) => {
       state.profileSuggestionStatus = state.profileSuggestionError = "error";
+    },
+    [followUser.pending]: (state) => {
+      state.followUserStatus = "loading";
+      state.followUserError = null;
+    },
+    [followUser.fulfilled]: (state, action) => {
+      console.log("Inside extraReducers of followUser: ", action.payload);
+      const userFollowedId = action.payload.data._id;
+      state.followUserStatus = "fulfilled";
+      state.profileSuggestions = removeFollowedUser(
+        state.profileSuggestions,
+        userFollowedId
+      );
+      Notify(ActionTypes.USER_FOLLOWED, "User Followed Successfully");
+    },
+    [followUser.rejected]: (state) => {
+      state.followUserStatus = state.followUserError = "error";
+      Notify(ActionTypes.USER_FOLLOWED_ERROR, "User cannot be followed");
     },
   },
 });

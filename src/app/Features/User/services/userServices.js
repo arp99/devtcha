@@ -30,5 +30,17 @@ export const uploadImage = async (uploadedImage) => {
 };
 
 export const profileSuggestionService = async () => {
-  return axiosAuthorization.get("user/suggestion")
-}
+  return axiosAuthorization.get("user/suggestion");
+};
+
+export const followUserService = async (userToFollowId) => {
+  return axiosAuthorization.post("user/follow", {
+    userToFollowId,
+  });
+};
+
+export const unFollowUserService = async (userToUnfollowId) => {
+  return axiosAuthorization.delete("user/unfollow", {
+    userToUnfollowId,
+  });
+};
