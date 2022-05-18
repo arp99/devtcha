@@ -33,7 +33,7 @@ export const ProfileSuggestionCard = ({
           className="w-3/5 h-3/5 rounded-full"
         />
       </div>
-      <div className=" w-full h-full flex justify-between">
+      <div className=" w-full h-full flex md:flex-col lg:flex-row justify-between">
         <div>
           <p className="font-semibold">
             {firstName} {lastName}

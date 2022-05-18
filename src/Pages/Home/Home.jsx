@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllPosts } from "../../app/Features/Post/postSlice";
 import { getProfileSuggestions } from "../../app/Features/User/userSlice";
 import { useEffect } from "react";
-import { Profilesuggestions } from "./Components/ProfileSuggestions"
+import { Profilesuggestions } from "./Components/ProfileSuggestions";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export const Home = () => {
     <div className="w-full min-h-screen">
       <Header />
       <div className="w-full min-h-screen grid grid-cols-4 relative">
-        <div className="min-h-screen mx-4 border-x border-primary-700 pt-16 col-start-2 col-span-2">
+        <div className="min-h-screen mx-8 pt-16 col-start-1 col-span-4 md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-2">
           <CreatePost />
           <div className="w-full p-2">
             <h1 className="text-3xl font-semibold text-primary-700">
