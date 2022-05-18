@@ -2,7 +2,7 @@ import logo from "../../../assets/logo.png";
 
 export const Searchbar = () => {
   return (
-    <div className="h-full w-2/5 flex items-center gap-10">
+    <div className="h-full w-1/2 md:w-2/5 flex items-center gap-10">
       <img
         src={logo}
         alt="devtcha logo"

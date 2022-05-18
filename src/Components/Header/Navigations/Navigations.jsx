@@ -5,7 +5,7 @@ import { Profile } from "./Profile/Profile";
 
 export const Navigations = () => {
   return (
-    <div className="h-full w-1/5">
+    <div className="h-full w-2/5 md:w-1/5">
       <div className="h-full w-full flex justify-between items-center">
         <Messages />
         <Notifications />
