@@ -1,17 +1,29 @@
-import { ProfileImage } from "../Header/Navigations/Profile/profileImage";
 import { useDispatch } from "react-redux";
 import { addReaction } from "../../app/Features/Post/postSlice";
 
 export const ViewPost = ({ post }) => {
   const postDispatch = useDispatch();
-  const { content, user, _id: postId, reactions } = post;
+  const {
+    content,
+    user,
+    _id: postId,
+    reactions,
+    user: { profileImageUrl, firstName, lastName },
+  } = post;
+  console.log({ post });
   return (
     <div className="w-full h-max rounded-md border border-primary-700 mb-2">
       <div className="h-full w-full flex">
         <div className="h-full w-1/5 flex justify-center py-4">
-          <ProfileImage
-            imageStyles={{ width: "60px", height: "60px", cursor: "pointer" }}
-            imageClassNames="rounded-full"
+          <img
+            src={
+              profileImageUrl
+                ? profileImageUrl
+                : `https://ui-avatars.com/api/?size=200&background=F472B6&rounded=true&name=${firstName}+${lastName}`
+            }
+            alt="profile"
+            style={{ width: "60px", height: "60px", cursor: "pointer" }}
+            className="rounded-full"
           />
         </div>
         <div className="h-full w-4/5 flex flex-col">

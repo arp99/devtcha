@@ -12,6 +12,7 @@ export const CreatePost = () => {
   const [postValue, setPostValue] = useState([]);
   const postRef = useRef(null);
   const { createPostStatus } = useSelector((state) => state.post);
+  const { profileImageUrl } = useSelector((state) => state.user);
   const postDispatch = useDispatch();
   if (createPostStatus === "fulfilled") {
     // Remove all children of content editable div
@@ -48,6 +49,7 @@ export const CreatePost = () => {
         <ProfileImage
           imageStyles={{ width: "60px", height: "60px", cursor: "pointer" }}
           imageClassNames="rounded-full"
+          userProfileImage={profileImageUrl}
         />
       </div>
       <div className="min-h-[11rem] w-4/5 flex flex-col">

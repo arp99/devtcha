@@ -28,7 +28,11 @@ export const ProfileSuggestionCard = ({
     >
       <div className="w-1/4 h-full">
         <img
-          src={profileImageUrl}
+          src={
+            profileImageUrl
+              ? profileImageUrl
+              : `https://ui-avatars.com/api/?size=200&background=F472B6&rounded=true&name=${firstName}+${lastName}`
+          }
           alt="profile pic"
           className="w-3/5 h-3/5 rounded-full"
         />
@@ -49,7 +53,6 @@ export const ProfileSuggestionCard = ({
             onClick={() => {
               setFollow(true);
               dispatch(followUser({ userToFollowId: _id }));
-              // setFollow(false);
             }}
           >
             Follow
