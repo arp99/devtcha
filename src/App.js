@@ -3,11 +3,12 @@ import jwtDecode from "jwt-decode";
 import "./App.css";
 import { useDispatch } from "react-redux";
 import { logout } from "./app/Features/auth/authSlice";
+import { resetUserState } from "./app/Features/User/userSlice";
 import { Route, Routes } from "react-router";
 import { PrivateRoute } from "./PrivateRoute/privateRoute";
 import { Home, Login, Signup, User } from "./Pages";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function App() {
     const token = localStorage.getItem("token");
     if (token && jwtDecode(token).exp * 1000 < Date.now()) {
       dispatch(logout());
+      dispatch(resetUserState());
     }
   }, [dispatch]);
 

@@ -83,6 +83,13 @@ export const userSlice = createSlice({
   reducers: {
     resetUserState: (state) => {
       state.status = "idle";
+      state.firstName = "";
+      state.lastName = "";
+      state.userName = "";
+      state.email = "";
+      state.profileImageUrl = "";
+      state.followers = [];
+      state.following = [];
     },
   },
   extraReducers: {

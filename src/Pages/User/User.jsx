@@ -7,6 +7,7 @@ import {
 } from "../../app/Features/User/userSlice";
 import { Button } from "../../Components";
 import { logout } from "../../app/Features/auth/authSlice";
+import { resetUserState } from "../../app/Features/User/userSlice";
 import { MdEdit } from "react-icons/md";
 
 export const User = () => {
@@ -76,7 +77,10 @@ export const User = () => {
               </div>
 
               <Button
-                onClick={() => dispatch(logout())}
+                onClick={() => {
+                  dispatch(logout());
+                  dispatch(resetUserState());
+                }}
                 variant="primary"
                 size="small"
               >
