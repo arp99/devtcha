@@ -34,9 +34,12 @@ export const addReaction = createAsyncThunk(
 
 export const deletePost = createAsyncThunk(
   "post/deletePost",
-  async ({ postId }) => {
-    const response = await deletePostService(postId);
-    return response.data;
+  async ({ post }) => {
+    const response = await deletePostService(post._id);
+    return {
+      data: response.data,
+      postId : post._id
+    };
   }
 );
 

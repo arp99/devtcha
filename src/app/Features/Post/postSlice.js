@@ -5,6 +5,8 @@ import {
   addReaction,
   deletePost,
 } from "./AsyncThunks";
+import { Notify } from "../../../Components/Notification/Notification";
+import { ActionTypes } from "../../../Components/Constants/ActionTypes";
 
 const postInitialState = {
   allPosts: [],
@@ -110,13 +112,14 @@ export const postSlice = createSlice({
       state.deletePostError = null;
     },
     [deletePost.fulfilled]: (state, action) => {
-      console.log("Inside extraReducers of deletePost: ", action.payload);
       const { postId } = action.payload;
-      // TODO: Change the post state here
+      state.allPosts = state.allPosts.filter((post) => post._id !== postId);
       state.deletePostStatus = "fulfilled";
+      Notify(ActionTypes.DELETE_POST_SUCCESS, "Post Deleted successfully");
     },
     [deletePost.rejected]: (state) => {
       state.deletePostStatus = state.deletePostError = "error";
+      Notify(ActionTypes.DELETE_POST_ERROR, "Cannot Delete Post");
     },
   },
 });

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AiOutlineMore, AiFillDelete } from "react-icons/ai";
 import { BsBookmarkCheck, BsBookmark } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
+import { deletePost } from "../../app/Features/Post/AsyncThunks";
 import {
   bookmarkPost,
   removeBookmark,
@@ -11,6 +12,8 @@ export const PostActions = ({ post }) => {
   const dispatch = useDispatch();
   const [viewAction, setViewAction] = useState(false);
   const { bookmarks } = useSelector((state) => state.user);
+  const { userId } = useSelector((state) => state.auth);
+
   const showActionsHandler = () => {
     setViewAction((prev) => !prev);
   };
@@ -37,8 +40,14 @@ export const PostActions = ({ post }) => {
         <AiOutlineMore size={20} className="mx-auto" />
       </button>
       {viewAction && (
-        <div className="border border-primary-700 p-2 h-16 flex flex-col justify-between rounded-sm bg-white shadow-md shadow-pink-300">
-          <AiFillDelete color="#be123c" className="cursor-pointer" />
+        <div className="border border-primary-700 p-2 h-max flex flex-col gap-4 rounded-sm bg-white shadow-md shadow-pink-300">
+          {post.user._id === userId && (
+            <AiFillDelete
+              color="#be123c"
+              className="cursor-pointer"
+              onClick={() => dispatch(deletePost({ post }))}
+            />
+          )}
           {isBookmarked() && (
             <BsBookmarkCheck
               color="#be123c"
