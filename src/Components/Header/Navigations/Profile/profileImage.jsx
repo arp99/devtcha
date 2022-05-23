@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserData } from "../../../../app/Features/User/userSlice";
+import { getUserData } from "../../../../app/Features/User/AsyncThunks";
 import { useNavigate } from "react-router-dom"
 
 export const ProfileImage = ({ imageStyles, imageClassNames }) => {

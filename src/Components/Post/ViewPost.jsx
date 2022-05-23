@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
-import { addReaction } from "../../app/Features/Post/postSlice";
+import { addReaction } from "../../app/Features/Post/AsyncThunks";
+import { PostActions } from "./PostActions";
 
 export const ViewPost = ({ post }) => {
   const postDispatch = useDispatch();
@@ -12,7 +13,8 @@ export const ViewPost = ({ post }) => {
   } = post;
   console.log({ post });
   return (
-    <div className="w-full h-max rounded-md border border-primary-700 mb-2">
+    <div className="w-full h-max rounded-md border border-primary-700 mb-2 relative">
+      <PostActions post={post} />
       <div className="h-full w-full flex">
         <div className="h-full w-1/5 flex justify-center py-4">
           <img

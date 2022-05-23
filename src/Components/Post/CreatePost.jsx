@@ -2,11 +2,8 @@ import { ProfileImage } from "../Header/Navigations/Profile/profileImage";
 import { Button } from "../Buttons";
 import { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  createPost,
-  resetPostStatus,
-  getAllPosts,
-} from "../../app/Features/Post/postSlice";
+import { resetPostStatus } from "../../app/Features/Post/postSlice";
+import { createPost, getAllPosts } from "../../app/Features/Post/AsyncThunks";
 
 export const CreatePost = () => {
   const [postValue, setPostValue] = useState([]);

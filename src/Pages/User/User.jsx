@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import {
   getUserData,
   updateProfileImage,
-} from "../../app/Features/User/userSlice";
+} from "../../app/Features/User/AsyncThunks";
 import { Button } from "../../Components";
 import { logout } from "../../app/Features/auth/authSlice";
 import { resetUserState } from "../../app/Features/User/userSlice";

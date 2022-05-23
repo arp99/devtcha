@@ -1,7 +1,7 @@
 import { Header, CreatePost, ViewPost } from "../../Components";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPosts } from "../../app/Features/Post/postSlice";
-import { getProfileSuggestions } from "../../app/Features/User/userSlice";
+import { getAllPosts } from "../../app/Features/Post/AsyncThunks";
+import { getProfileSuggestions } from "../../app/Features/User/AsyncThunks";
 import { useEffect } from "react";
 import { Profilesuggestions } from "./Components/ProfileSuggestions";
 

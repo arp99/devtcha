@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { followUser } from "../../../app/Features/User/userSlice";
+import { followUser } from "../../../app/Features/User/AsyncThunks";
 import { Button } from "../../../Components";
 
 export const ProfileSuggestionCard = ({

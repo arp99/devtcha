@@ -44,3 +44,9 @@ export const unFollowUserService = async (userToUnfollowId) => {
     userToUnfollowId,
   });
 };
+
+export const bookmarkPostService = async (postId) =>
+  axiosAuthorization.post(`post/bookmark/${postId}`);
+
+export const removeBookmarkService = async (postId) =>
+  axiosAuthorization.delete(`post/bookmark/${postId}`);

@@ -1,60 +1,16 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { ActionTypes } from "../../../Components/Constants/ActionTypes";
 import { Notify } from "../../../Components/Notification/Notification";
-import {
-  fetchUserData,
-  uploadImage,
-  profileSuggestionService,
-  followUserService,
-  unFollowUserService,
-} from "./services/userServices";
 import { removeFollowedUser } from "./utils/userUtils";
-
-//fetch current user data
-export const getUserData = createAsyncThunk("user/getUserData", async () => {
-  const response = await fetchUserData();
-  console.log("From async thunk user slice: ", { response });
-  return response.data;
-});
-
-//update profile image of user
-export const updateProfileImage = createAsyncThunk(
-  "user/updateProfileImage",
-  async ({ imageToUpload }) => {
-    const response = await uploadImage(imageToUpload);
-    console.log("Inside updateProfile async thunk: ", response.data);
-    return response.data;
-  }
-);
-
-// Get user profile suggestions
-export const getProfileSuggestions = createAsyncThunk(
-  "user/getProfileSuggestions",
-  async () => {
-    const response = await profileSuggestionService();
-    console.log("Inside getProfileSuggestions async thunk: ", response.data);
-    return response.data;
-  }
-);
-
-// Follow user
-export const followUser = createAsyncThunk(
-  "user/followUser",
-  async ({ userToFollowId }) => {
-    const response = await followUserService(userToFollowId);
-    console.log("Inside followUser async thunk: ", response.data);
-    return response.data;
-  }
-);
-
-export const unFollowUser = createAsyncThunk(
-  "user/unFollowUser",
-  async ({ userToUnfollowId }) => {
-    const response = await unFollowUserService(userToUnfollowId);
-    console.log("Inside unFollowUser async thunk: ", response.data);
-    return response.data;
-  }
-);
+import {
+  getUserData,
+  followUser,
+  getProfileSuggestions,
+  unFollowUser,
+  updateProfileImage,
+  bookmarkPost,
+  removeBookmark,
+} from "./AsyncThunks";
 
 const userInitialState = {
   firstName: "",
@@ -64,16 +20,21 @@ const userInitialState = {
   profileImageUrl: "",
   followers: [],
   following: [],
+  bookmarks: [],
   status: "idle",
   profileImageStatus: "idle",
   profileSuggestions: [],
   profileSuggestionStatus: "idle",
   followUserStatus: "idle",
   unFollowUserStatus: "idle",
+  bookmarkStatus: "idle",
+  removeBookmarkStatus: "idle",
   profileSuggestionError: null,
   profileImageUploadError: null,
   followUserError: null,
   unFollowUserError: null,
+  bookmarkError: null,
+  removeBookmarkError: null,
   error: null,
 };
 
@@ -90,6 +51,7 @@ export const userSlice = createSlice({
       state.profileImageUrl = "";
       state.followers = [];
       state.following = [];
+      state.bookmarks = [];
     },
   },
   extraReducers: {
@@ -107,6 +69,7 @@ export const userSlice = createSlice({
         profileImageUrl,
         followers,
         following,
+        bookmarks,
       } = action.payload.data;
       state.firstName = firstName;
       state.lastName = lastName;
@@ -115,6 +78,7 @@ export const userSlice = createSlice({
       state.profileImageUrl = profileImageUrl;
       state.followers = followers;
       state.following = following;
+      state.bookmarks = bookmarks;
       state.status = "fulfilled";
     },
     [getUserData.rejected]: (state) => {
@@ -166,6 +130,34 @@ export const userSlice = createSlice({
     [followUser.rejected]: (state) => {
       state.followUserStatus = state.followUserError = "error";
       Notify(ActionTypes.USER_FOLLOWED_ERROR, "User cannot be followed");
+    },
+    [bookmarkPost.pending]: (state) => {
+      state.bookmarkStatus = "loading";
+      state.bookmarkError = null;
+    },
+    [bookmarkPost.fulfilled]: (state, action) => {
+      console.log("Inside extraReducers of bookmarkPost: ", action.payload);
+      const { post } = action.payload;
+      state.bookmarks = [...state.bookmarks, post];
+      state.bookmarkStatus = "fulfilled";
+      Notify(ActionTypes.BOOKMARK_SUCCESS, "Bookmarked Post");
+    },
+    [bookmarkPost.rejected]: (state) => {
+      state.bookmarkStatus = state.bookmarkError = "error";
+    },
+    [removeBookmark.pending]: (state) => {
+      state.removeBookmarkStatus = "loading";
+      state.removeBookmarkError = null;
+    },
+    [removeBookmark.fulfilled]: (state, action) => {
+      console.log("Inside extraReducers of removeBookmark: ", action.payload);
+      const { post } = action.payload;
+      state.bookmarks = state.bookmarks.filter(({ _id }) => _id !== post._id);
+      state.removeBookmarkStatus = "fulfilled";
+      Notify(ActionTypes.REMOVE_BOOKMARK_SUCCESS, "Bookmark Removed");
+    },
+    [removeBookmark.rejected]: (state) => {
+      state.removeBookmarkStatus = state.removeBookmarkError = "error";
     },
   },
 });

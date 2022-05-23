@@ -6,7 +6,9 @@ export const Notify = (notifyType, message) => {
     case ActionTypes.LOGIN_SUCCESS:
     case ActionTypes.SIGNUP_SUCCESS:
     case ActionTypes.LOGOUT_SUCCESS:
-    case ActionTypes.USER_FOLLOWED: return toast.success(message);
+    case ActionTypes.USER_FOLLOWED: 
+    case ActionTypes.BOOKMARK_SUCCESS:
+    case ActionTypes.REMOVE_BOOKMARK_SUCCESS: return toast.success(message);
     case ActionTypes.LOGIN_ERROR:
     case ActionTypes.SIGNUP_ERROR:
     case ActionTypes.LOGOUT_ERROR:

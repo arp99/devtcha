@@ -1,33 +1,10 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import {
-  createPostService,
-  getAllPostsService,
-  addReactionService,
-} from "./services/postServices";
-
-export const createPost = createAsyncThunk(
-  "post/createPost",
-  async ({ content }) => {
-    const response = await createPostService(content);
-    console.log("From post async thunk : ", { response });
-    return response.data;
-  }
-);
-
-export const getAllPosts = createAsyncThunk("post/getAllPosts", async () => {
-  const response = await getAllPostsService();
-  console.log("From getAllpost async thunk: ", { response });
-  return response.data;
-});
-
-export const addReaction = createAsyncThunk(
-  "post/addReaction",
-  async ({ postId, reaction }) => {
-    const response = await addReactionService(postId, reaction);
-    console.log("From addReaction async thunk: ", { response });
-    return response.data;
-  }
-);
+  createPost,
+  getAllPosts,
+  addReaction,
+  deletePost,
+} from "./AsyncThunks";
 
 const postInitialState = {
   allPosts: [],
@@ -37,6 +14,8 @@ const postInitialState = {
   fetchPostError: null,
   addReactionStatus: "idle",
   addReactionError: null,
+  deletePostStatus: "idle",
+  deletePostError: null,
 };
 
 export const postSlice = createSlice({
@@ -125,6 +104,19 @@ export const postSlice = createSlice({
     },
     [addReaction.rejected]: (state) => {
       state.addReactionStatus = state.addReactionError = "error";
+    },
+    [deletePost.pending]: (state) => {
+      state.deletePostStatus = "loading";
+      state.deletePostError = null;
+    },
+    [deletePost.fulfilled]: (state, action) => {
+      console.log("Inside extraReducers of deletePost: ", action.payload);
+      const { postId } = action.payload;
+      // TODO: Change the post state here
+      state.deletePostStatus = "fulfilled";
+    },
+    [deletePost.rejected]: (state) => {
+      state.deletePostStatus = state.deletePostError = "error";
     },
   },
 });
