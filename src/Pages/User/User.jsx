@@ -1,14 +1,12 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {
-  getUserData,
-  updateProfileImage,
-} from "../../app/Features/User/AsyncThunks";
+import { updateProfileImage } from "../../app/Features/User/AsyncThunks";
 import { Button } from "../../Components";
 import { logout } from "../../app/Features/auth/authSlice";
 import { resetUserState } from "../../app/Features/User/userSlice";
 import { MdEdit } from "react-icons/md";
+import { UsersModal } from "../../Components/UsersModal/UsersModal";
 
 export const User = () => {
   const dispatch = useDispatch();
@@ -21,13 +19,9 @@ export const User = () => {
     followers,
     following,
   } = useSelector((state) => state.user);
-  const { token } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (token && status === "idle") {
-      dispatch(getUserData());
-    }
-  }, [dispatch, status, token]);
+  const [showFollowers, setShowFollowers] = useState(false);
+  const [showFollowing, setShowFollowing] = useState(false);
 
   return (
     <div className="w-100 min-h-screen">
@@ -93,11 +87,31 @@ export const User = () => {
               </h1>
               <p className="text-gray-500">@{userName}</p>
               <div className="w-100">
-                <span className="mr-3">
+                <span
+                  role={"button"}
+                  className="mr-3"
+                  onClick={() => setShowFollowers(true)}
+                >
                   {followers.length}{" "}
                   {followers.length > 1 ? "followers" : "follower"}
                 </span>
-                <span>{following.length} following</span>
+                {showFollowers && (
+                  <UsersModal
+                    users={followers}
+                    setShowModal={setShowFollowers}
+                    title="Followers"
+                  />
+                )}
+                <span role={"button"} onClick={() => setShowFollowing(true)}>
+                  {following.length} following
+                </span>
+                {showFollowing && (
+                  <UsersModal
+                    users={following}
+                    setShowModal={setShowFollowing}
+                    title="Following"
+                  />
+                )}
               </div>
             </div>
           </div>

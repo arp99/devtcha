@@ -4,3 +4,23 @@
     padding:0;
     box-sizing:border-box;
 }
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 20px;
+  }
+
+::-webkit-scrollbar-track {
+    border-radius: 50px;
+    background: #f7f4ed;
+    border: 1px solid #be123c;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e67ba6;
+    border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #c0a0b9;
+}
