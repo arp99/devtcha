@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getAllPosts } from "../../../app/Features/Post/AsyncThunks";
 import { followUser } from "../../../app/Features/User/AsyncThunks";
 import { Button } from "../../../Components";
 
@@ -16,10 +17,10 @@ export const ProfileSuggestionCard = ({
 
   useEffect(() => {
     if (followUserStatus === "fulfilled") {
-      console.log({ followUserStatus });
+      dispatch(getAllPosts());
       setFollow(false);
     }
-  }, [followUserStatus]);
+  }, [followUserStatus, dispatch]);
 
   return (
     <div

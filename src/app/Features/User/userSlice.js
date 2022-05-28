@@ -119,11 +119,16 @@ export const userSlice = createSlice({
     },
     [followUser.fulfilled]: (state, action) => {
       console.log("Inside extraReducers of followUser: ", action.payload);
-      const userFollowedId = action.payload.data._id;
+      const { _id, firstName, lastName, profileImageUrl, userName } =
+        action.payload.data;
+      state.following = [
+        ...state.following,
+        { _id, firstName, lastName, profileImageUrl, userName },
+      ];
       state.followUserStatus = "fulfilled";
       state.profileSuggestions = removeFollowedUser(
         state.profileSuggestions,
-        userFollowedId
+        _id
       );
       Notify(ActionTypes.USER_FOLLOWED, "User Followed Successfully");
     },
@@ -158,6 +163,22 @@ export const userSlice = createSlice({
     },
     [removeBookmark.rejected]: (state) => {
       state.removeBookmarkStatus = state.removeBookmarkError = "error";
+    },
+    [unFollowUser.pending]: (state) => {
+      state.unFollowUserStatus = "loading";
+      state.unFollowUserError = null;
+    },
+    [unFollowUser.fulfilled]: (state, action) => {
+      console.log("Inside extraReducers of unFollowUser: ", action.payload);
+      const { _id } = action.payload.data;
+      state.following = state.following.filter((user) => user._id !== _id);
+      state.unFollowUserStatus = "fulfilled";
+      state.unFollowUserError = null;
+      Notify(ActionTypes.USER_UNFOLLOWED, "Unfollowed User");
+    },
+    [unFollowUser.rejected]: (state) => {
+      state.unFollowUserStatus = state.unFollowUserError = "error";
+      Notify(ActionTypes.USER_UNFOLLOWED_ERROR, "Cannot Unfollow user!");
     },
   },
 });

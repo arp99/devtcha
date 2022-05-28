@@ -1,6 +1,15 @@
+import { useDispatch, useSelector } from "react-redux";
+import { followUser, unFollowUser } from "../../app/Features/User/AsyncThunks";
 import { Button } from "../Buttons";
 
 export const UsersModal = ({ users, setShowModal, title }) => {
+  const { following } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const isFollowing = (userId, following) => {
+    return following.find((user) => user._id === userId) ? true : false;
+  };
+
   return (
     <div
       className="w-full h-screen fixed top-0 left-0 px-2 flex justify-center items-center backdrop-blur-sm z-10"
@@ -38,6 +47,29 @@ export const UsersModal = ({ users, setShowModal, title }) => {
                   </p>
                   <p className="text-gray-600">@{userName}</p>
                 </div>
+                {isFollowing(_id, following) ? (
+                  <Button
+                    size={"small"}
+                    variant={"secondary"}
+                    loaderColor={"salmon"}
+                    onClick={() => {
+                      dispatch(unFollowUser({ userToUnfollowId: _id }));
+                    }}
+                  >
+                    Unfollow
+                  </Button>
+                ) : (
+                  <Button
+                    size={"small"}
+                    variant={"secondary"}
+                    loaderColor={"salmon"}
+                    onClick={() => {
+                      dispatch(followUser({ userToFollowId: _id }));
+                    }}
+                  >
+                    Follow
+                  </Button>
+                )}
                 {/* <div>
                   <Button
                     size={"small"}

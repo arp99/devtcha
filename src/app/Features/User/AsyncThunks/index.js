@@ -49,6 +49,7 @@ export const followUser = createAsyncThunk(
 export const unFollowUser = createAsyncThunk(
   "user/unFollowUser",
   async ({ userToUnfollowId }) => {
+    // console.log({ userToUnfollowId });
     const response = await unFollowUserService(userToUnfollowId);
     console.log("Inside unFollowUser async thunk: ", response.data);
     return response.data;

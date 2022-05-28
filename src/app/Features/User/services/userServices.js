@@ -40,8 +40,11 @@ export const followUserService = async (userToFollowId) => {
 };
 
 export const unFollowUserService = async (userToUnfollowId) => {
+  console.log(userToUnfollowId);
   return axiosAuthorization.delete("user/unfollow", {
-    userToUnfollowId,
+    data: {
+      userToUnfollowId,
+    },
   });
 };
 
