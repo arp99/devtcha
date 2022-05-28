@@ -12,7 +12,6 @@ import {
 //fetch current user data
 export const getUserData = createAsyncThunk("user/getUserData", async () => {
   const response = await fetchUserData();
-  console.log("From async thunk user slice: ", { response });
   return response.data;
 });
 
@@ -21,7 +20,6 @@ export const updateProfileImage = createAsyncThunk(
   "user/updateProfileImage",
   async ({ imageToUpload }) => {
     const response = await uploadImage(imageToUpload);
-    console.log("Inside updateProfile async thunk: ", response.data);
     return response.data;
   }
 );
@@ -31,7 +29,6 @@ export const getProfileSuggestions = createAsyncThunk(
   "user/getProfileSuggestions",
   async () => {
     const response = await profileSuggestionService();
-    console.log("Inside getProfileSuggestions async thunk: ", response.data);
     return response.data;
   }
 );
@@ -41,7 +38,6 @@ export const followUser = createAsyncThunk(
   "user/followUser",
   async ({ userToFollowId }) => {
     const response = await followUserService(userToFollowId);
-    console.log("Inside followUser async thunk: ", response.data);
     return response.data;
   }
 );
@@ -49,9 +45,7 @@ export const followUser = createAsyncThunk(
 export const unFollowUser = createAsyncThunk(
   "user/unFollowUser",
   async ({ userToUnfollowId }) => {
-    // console.log({ userToUnfollowId });
     const response = await unFollowUserService(userToUnfollowId);
-    console.log("Inside unFollowUser async thunk: ", response.data);
     return response.data;
   }
 );

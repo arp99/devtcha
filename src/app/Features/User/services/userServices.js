@@ -8,7 +8,6 @@ export const fetchUserData = async () => {
 export const uploadImage = async (uploadedImage) => {
   let uploadedUrl = "";
   const data = new FormData();
-  console.log("Uploaded image inside service: ", uploadedImage);
   data.append("file", uploadedImage);
   data.append("upload_preset", "jdu0mhef");
   data.append("cloud_name", "arp99");
@@ -40,7 +39,6 @@ export const followUserService = async (userToFollowId) => {
 };
 
 export const unFollowUserService = async (userToUnfollowId) => {
-  console.log(userToUnfollowId);
   return axiosAuthorization.delete("user/unfollow", {
     data: {
       userToUnfollowId,

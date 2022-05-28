@@ -39,7 +39,6 @@ export const postSlice = createSlice({
       state.createPostError = null;
     },
     [createPost.fulfilled]: (state, action) => {
-      console.log("From extra reducers of postSlice: ", action.payload);
       state.createPostStatus = "fulfilled";
       state.createPostError = null;
     },
@@ -51,7 +50,6 @@ export const postSlice = createSlice({
       state.fetchPostError = null;
     },
     [getAllPosts.fulfilled]: (state, action) => {
-      console.log("Inside extra reducer of getAllpost: ", action.payload);
       state.allPosts = action.payload.posts;
       state.fetchPostStatus = "fulfilled";
       state.fetchPostError = null;
@@ -64,7 +62,6 @@ export const postSlice = createSlice({
       state.addReactionError = null;
     },
     [addReaction.fulfilled]: (state, action) => {
-      console.log("Inside extra reducer of addReaction: ", action.payload);
       // toggle reaction from client side here
       const { postId, userId, reaction } = action.payload;
       //find which post reaction to update, and return updated posts

@@ -60,7 +60,6 @@ export const userSlice = createSlice({
       state.error = null;
     },
     [getUserData.fulfilled]: (state, action) => {
-      console.log("Inside extraReducers of getUserData: ", action.payload);
       const {
         firstName,
         lastName,
@@ -89,8 +88,6 @@ export const userSlice = createSlice({
       state.profileImageUploadError = null;
     },
     [updateProfileImage.fulfilled]: (state, action) => {
-      console.log("Inside extraReducers of update Profile: ", action.payload);
-      // const { url } = action.payload;
       state.profileImageUrl = action.payload.data;
       state.profileImageStatus = "fulfilled";
     },
@@ -102,10 +99,7 @@ export const userSlice = createSlice({
       state.profileSuggestionError = null;
     },
     [getProfileSuggestions.fulfilled]: (state, action) => {
-      console.log(
-        "Inside extraReducers of getProfileSuggestions: ",
-        action.payload
-      );
+      
       state.profileSuggestions = action.payload.suggestedProfiles;
       state.profileSuggestionStatus = "fulfilled";
       state.profileSuggestionError = null;
@@ -118,7 +112,6 @@ export const userSlice = createSlice({
       state.followUserError = null;
     },
     [followUser.fulfilled]: (state, action) => {
-      console.log("Inside extraReducers of followUser: ", action.payload);
       const { _id, firstName, lastName, profileImageUrl, userName } =
         action.payload.data;
       state.following = [
@@ -141,7 +134,6 @@ export const userSlice = createSlice({
       state.bookmarkError = null;
     },
     [bookmarkPost.fulfilled]: (state, action) => {
-      console.log("Inside extraReducers of bookmarkPost: ", action.payload);
       const { post } = action.payload;
       state.bookmarks = [...state.bookmarks, post];
       state.bookmarkStatus = "fulfilled";
@@ -155,7 +147,6 @@ export const userSlice = createSlice({
       state.removeBookmarkError = null;
     },
     [removeBookmark.fulfilled]: (state, action) => {
-      console.log("Inside extraReducers of removeBookmark: ", action.payload);
       const { post } = action.payload;
       state.bookmarks = state.bookmarks.filter(({ _id }) => _id !== post._id);
       state.removeBookmarkStatus = "fulfilled";
@@ -169,7 +160,6 @@ export const userSlice = createSlice({
       state.unFollowUserError = null;
     },
     [unFollowUser.fulfilled]: (state, action) => {
-      console.log("Inside extraReducers of unFollowUser: ", action.payload);
       const { _id } = action.payload.data;
       state.following = state.following.filter((user) => user._id !== _id);
       state.unFollowUserStatus = "fulfilled";

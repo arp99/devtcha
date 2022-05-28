@@ -12,7 +12,6 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }) => {
     const response = await loginUser(email, password);
-    console.log("From login async thunk: ", { response });
     return response.data;
   }
 );
@@ -27,7 +26,6 @@ export const signup = createAsyncThunk(
       password,
       userName
     );
-    console.log("From signup user async thunk: ", { response });
     return response.data;
   }
 );
@@ -88,7 +86,6 @@ export const authSlice = createSlice({
       state.loggedInError = null;
     },
     [login.fulfilled]: (state, action) => {
-      console.log("From extra reducer in login: ", action.payload);
       const { token, userId } = action.payload;
       state.token = token;
       state.userId = userId;
@@ -106,7 +103,6 @@ export const authSlice = createSlice({
       state.signupError = null;
     },
     [signup.fulfilled]: (state, action) => {
-      console.log("From extra reducers in signup:", action.payload);
       state.signupStatus = "fulfilled";
       Notify(ActionTypes.SIGNUP_SUCCESS, "Successfully registered");
     },

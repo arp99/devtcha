@@ -11,7 +11,6 @@ export const ViewPost = ({ post }) => {
     reactions,
     user: { profileImageUrl, firstName, lastName },
   } = post;
-  console.log({ post });
   return (
     <div className="w-full h-max rounded-md border border-primary-700 mb-2 relative">
       <PostActions post={post} />
