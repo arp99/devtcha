@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { updateProfileImage } from "../../app/Features/User/AsyncThunks";
-import { Button } from "../../Components";
+import { Button, ViewPost } from "../../Components";
 import { logout } from "../../app/Features/auth/authSlice";
 import { resetUserState } from "../../app/Features/User/userSlice";
 import { MdEdit } from "react-icons/md";
@@ -18,6 +18,7 @@ export const User = () => {
     profileImageUrl,
     followers,
     following,
+    bookmarks,
   } = useSelector((state) => state.user);
 
   const [showFollowers, setShowFollowers] = useState(false);
@@ -90,7 +91,7 @@ export const User = () => {
                 <span
                   role={"button"}
                   className="mr-3"
-                  onClick={() => setShowFollowers(true)}
+                  onClick={() => followers.length > 0 && setShowFollowers(true)}
                 >
                   {followers.length}{" "}
                   {followers.length > 1 ? "followers" : "follower"}
@@ -102,7 +103,10 @@ export const User = () => {
                     title="Followers"
                   />
                 )}
-                <span role={"button"} onClick={() => setShowFollowing(true)}>
+                <span
+                  role={"button"}
+                  onClick={() => following.length > 0 && setShowFollowing(true)}
+                >
                   {following.length} following
                 </span>
                 {showFollowing && (
@@ -115,6 +119,19 @@ export const User = () => {
               </div>
             </div>
           </div>
+        )}
+        {status === "fulfilled" && (
+          <>
+            <h1 className="text-primary-700 font-semibold text-lg text-center">
+              Bookmarks
+            </h1>
+            <div className="w-full md:w-4/5 mx-auto">
+              {bookmarks.length === 0 && <p>Nothing in Bookmarks</p>}
+              {bookmarks.map((post) => (
+                <ViewPost key={post._id} post={post} />
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>

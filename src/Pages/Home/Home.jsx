@@ -14,7 +14,7 @@ export const Home = () => {
   }, [dispatch]);
 
   return (
-    <div className="w-full min-h-screen">
+    <div className="w-full min-h-screen mb-10">
       <Header />
       <div className="w-full min-h-screen grid grid-cols-4 relative">
         <div className="min-h-screen mx-8 pt-16 col-start-1 col-span-4 md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-2">
@@ -24,6 +24,7 @@ export const Home = () => {
               Post feeds
             </h1>
           </div>
+          { allPosts.length === 0 && <p className="text-primary-700 text-center">Follow users to see their posts, meanwhile create a post 😓</p>}
           {/* Show all the posts feed for the user  */}
           {allPosts.map((post) => (
             <ViewPost key={post._id} post={post} />

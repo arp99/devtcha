@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
-import { FaGithub } from "react-icons/fa";
 import { login } from "../../app/Features/auth/authSlice";
 import {
   StyledError,
@@ -81,9 +80,17 @@ export const Login = () => {
           </Form>
         </Formik>
         <InputGroup>
-        <p className="text-center text-sm font-medium mb-2">Or</p>
-          <Button variant="github" size="full">
-            <FaGithub /> Login with Github
+          <p className="text-center text-sm font-medium mb-2">Or</p>
+          <Button
+            variant="github"
+            size="full"
+            onClick={() =>
+              loginDispatch(
+                login({ email: "test1@gmail.com", password: "1234" })
+              )
+            }
+          >
+            Guest Login
           </Button>
           <p className="my-2">
             Don't have Account? <Link to="/signup">Register</Link>

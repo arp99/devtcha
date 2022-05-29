@@ -53,6 +53,41 @@ export const userSlice = createSlice({
       state.following = [];
       state.bookmarks = [];
     },
+    addReactionInBookmarks: (state, action) => {
+      const { postId, reaction, userId } = action.payload;
+      state.bookmarks = state.bookmarks.map((post) => {
+        if (post._id === postId) {
+          //now go to the reactions of this post and toggle the userId
+          const reactionToUpdate = [...post.reactions[reaction]];
+          //getting no. of users who reacted to this reaction
+          const currentReactionsCount = reactionToUpdate.length;
+          //if no reactions of this type is there simply add this userId here
+          if (currentReactionsCount === 0) {
+            return {
+              ...post,
+              reactions: { ...post.reactions, [reaction]: [userId] },
+            };
+          } else {
+            //Filtering out if the current user has already reacted or not
+            let updatedReactions = reactionToUpdate.filter(
+              (id) => id !== userId
+            );
+            //Now after filtering out if current reactions count is same as before, then the current user had
+            //never reacted to that before, so add the user's reaction else update whith filtered reactions
+            updatedReactions =
+              updatedReactions.length === currentReactionsCount
+                ? [...updatedReactions, userId]
+                : updatedReactions;
+
+            return {
+              ...post,
+              reactions: { ...post.reactions, [reaction]: updatedReactions },
+            };
+          }
+        }
+        return post;
+      });
+    },
   },
   extraReducers: {
     [getUserData.pending]: (state) => {
@@ -99,7 +134,6 @@ export const userSlice = createSlice({
       state.profileSuggestionError = null;
     },
     [getProfileSuggestions.fulfilled]: (state, action) => {
-      
       state.profileSuggestions = action.payload.suggestedProfiles;
       state.profileSuggestionStatus = "fulfilled";
       state.profileSuggestionError = null;
@@ -173,5 +207,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { resetUserState } = userSlice.actions;
+export const { resetUserState, addReactionInBookmarks } = userSlice.actions;
 export default userSlice.reducer;

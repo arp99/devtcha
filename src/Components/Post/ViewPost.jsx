@@ -1,5 +1,6 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addReaction } from "../../app/Features/Post/AsyncThunks";
+import { addReactionInBookmarks } from "../../app/Features/User/userSlice";
 import { PostActions } from "./PostActions";
 
 export const ViewPost = ({ post }) => {
@@ -11,6 +12,17 @@ export const ViewPost = ({ post }) => {
     reactions,
     user: { profileImageUrl, firstName, lastName },
   } = post;
+  const { bookmarks } = useSelector((state) => state.user);
+  const { userId } = useSelector((state) => state.auth);
+
+  const isBookmarked = (postId) => {
+    return bookmarks.find((post) => post._id === postId) ? true : false;
+  };
+
+  const addReactionInBookmark = (postId, react) => {
+    postDispatch(addReactionInBookmarks({ postId, reaction: react, userId }));
+  };
+
   return (
     <div className="w-full h-max rounded-md border border-primary-700 mb-2 relative">
       <PostActions post={post} />
@@ -49,33 +61,45 @@ export const ViewPost = ({ post }) => {
       <div className="h-14 w-full p-2 px-6 flex justify-evenly">
         <button
           className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200"
-          onClick={() =>
-            postDispatch(addReaction({ postId, reaction: "love" }))
-          }
+          onClick={() => {
+            postDispatch(addReaction({ postId, reaction: "love" }));
+            if (isBookmarked(postId)) {
+              addReactionInBookmark(postId, "love");
+            }
+          }}
         >
           ❤ <span>{reactions["love"].length}</span>
         </button>
         <button
           className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200"
-          onClick={() =>
-            postDispatch(addReaction({ postId, reaction: "rocket" }))
-          }
+          onClick={() => {
+            postDispatch(addReaction({ postId, reaction: "rocket" }));
+            if (isBookmarked(postId)) {
+              addReactionInBookmark(postId, "rocket");
+            }
+          }}
         >
           🚀 <span>{reactions["rocket"].length}</span>
         </button>
         <button
           className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200"
-          onClick={() =>
-            postDispatch(addReaction({ postId, reaction: "celebrate" }))
-          }
+          onClick={() => {
+            postDispatch(addReaction({ postId, reaction: "celebrate" }));
+            if (isBookmarked(postId)) {
+              addReactionInBookmark(postId, "celebrate");
+            }
+          }}
         >
           🎉 <span>{reactions["celebrate"].length}</span>
         </button>
         <button
           className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200"
-          onClick={() =>
-            postDispatch(addReaction({ postId, reaction: "confused" }))
-          }
+          onClick={() => {
+            postDispatch(addReaction({ postId, reaction: "confused" }));
+            if (isBookmarked(postId)) {
+              addReactionInBookmark(postId, "confused");
+            }
+          }}
         >
           👀 <span>{reactions["confused"].length}</span>
         </button>
