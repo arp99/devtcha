@@ -6,19 +6,19 @@ export const Button = ({
   size,
   state,
   className,
-  loaderColor="white",
+  loaderColor = "white",
   ...props
 }) => {
   return (
     <button
       className={`w-max rounded-md shadow-xl ${
         variant === "primary"
-          ? `bg-gradient-to-r from-primary-700 to-pink-600 text-white shadow-md shadow-pink-500 transition-transform duration-[300ms] hover:-translate-y-[4px]`
+          ? `bg-gradient-to-r from-primary-700 to-pink-600 dark:from-primary_dark-700 dark:to-blue-400 text-white shadow-md shadow-pink-500 dark:shadow-[#293548] transition-transform duration-[300ms] hover:-translate-y-[4px]`
           : ``
       }
         ${
           variant === "secondary"
-            ? `border-2 border-solid border-red-400 text-red-500`
+            ? `border-2 border-solid border-red-400 text-red-500 dark:border-primary_dark-700 dark:text-blue-400`
             : ``
         }
         ${
@@ -39,7 +39,8 @@ export const Button = ({
     >
       {state === "loading" ? (
         <>
-          Please Wait <ClipLoader size={15} color={loaderColor} loading={true} />
+          Please Wait{" "}
+          <ClipLoader size={15} color={loaderColor} loading={true} />
         </>
       ) : (
         children

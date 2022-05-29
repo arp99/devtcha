@@ -41,7 +41,7 @@ export const CreatePost = () => {
   };
 
   return (
-    <div className="w-full min-h-[11rem] rounded-md shadow-lg shadow-pink-300 border border-primary-700 flex pr-4">
+    <div className="w-full min-h-[11rem] rounded-md shadow-lg shadow-pink-300 dark:shadow-[#293548] border border-primary-700 dark:border-primary_dark-700 flex pr-4">
       <div className="min-h-[11rem] w-1/5 flex justify-center py-4">
         <ProfileImage
           imageStyles={{ width: "60px", height: "60px", cursor: "pointer" }}
@@ -50,9 +50,9 @@ export const CreatePost = () => {
         />
       </div>
       <div className="min-h-[11rem] w-4/5 flex flex-col">
-        <div className="w-full min-h-[70%] border-0 border-b border-primary-700">
+        <div className="w-full min-h-[70%] border-0 border-b border-primary-700 dark:border-primary_dark-700">
           <div
-            className="w-full outline-none p-2 tracking-widest text-gray-800 inline-block"
+            className="w-full outline-none p-2 tracking-widest text-gray-800 dark:text-white inline-block"
             placeholder="Got something to share?"
             onKeyUp={userInputHandler}
             contentEditable={true}

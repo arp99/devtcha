@@ -49,16 +49,16 @@ export const Login = () => {
           validationSchema={validationSchema}
         >
           <Form>
-            <h3 className="text-xl font-medium text-primary-700">
+            <h3 className="text-xl font-medium text-primary-700 dark:text-primary_dark-700">
               Login in to our account
             </h3>
             <InputGroup>
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email" className="dark:text-white">Email</label>
               <Field type="email" id="email" name="email" autoComplete="off" />
               <ErrorMessage name="email" component={StyledError} />
             </InputGroup>
             <InputGroup>
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password" className="dark:text-white">Password</label>
               <Field
                 type="password"
                 id="password"
@@ -80,7 +80,7 @@ export const Login = () => {
           </Form>
         </Formik>
         <InputGroup>
-          <p className="text-center text-sm font-medium mb-2">Or</p>
+          <p className="text-center text-sm font-medium mb-2 dark:text-white">Or</p>
           <Button
             variant="github"
             size="full"
@@ -92,7 +92,7 @@ export const Login = () => {
           >
             Guest Login
           </Button>
-          <p className="my-2">
+          <p className="my-2 dark:text-primary_dark-700">
             Don't have Account? <Link to="/signup">Register</Link>
           </p>
         </InputGroup>

@@ -5,12 +5,15 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { BrowserRouter as Router } from "react-router-dom";
+import { ThemeProvider } from "./Context/ThemeProvider";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <App />
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </Router>
     </Provider>
   </React.StrictMode>,

@@ -24,7 +24,7 @@ export const ViewPost = ({ post }) => {
   };
 
   return (
-    <div className="w-full h-max rounded-md border border-primary-700 mb-2 relative">
+    <div className="w-full h-max rounded-md border border-primary-700 dark:border-primary_dark-700 mb-2 relative dark:bg-[#0f172a]">
       <PostActions post={post} />
       <div className="h-full w-full flex">
         <div className="h-full w-1/5 flex justify-center py-4">
@@ -42,7 +42,7 @@ export const ViewPost = ({ post }) => {
         <div className="h-full w-4/5 flex flex-col">
           {/* Here show the name, username and time when the post was made  */}
           <div className="w-full h-full">
-            <div className="w-full outline-none p-3 tracking-widest text-gray-800 inline-block">
+            <div className="w-full outline-none p-3 tracking-widest text-gray-800 dark:text-white inline-block">
               <div className="w-full p-2">
                 <p className="font-semibold">
                   {user.firstName} {user.lastName}{" "}
@@ -60,7 +60,7 @@ export const ViewPost = ({ post }) => {
       </div>
       <div className="h-14 w-full p-2 px-6 flex justify-evenly">
         <button
-          className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200"
+          className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200 dark:hover:bg-[#293548]"
           onClick={() => {
             postDispatch(addReaction({ postId, reaction: "love" }));
             if (isBookmarked(postId)) {
@@ -68,10 +68,10 @@ export const ViewPost = ({ post }) => {
             }
           }}
         >
-          ❤ <span>{reactions["love"].length}</span>
+          ❤ <span className="dark:text-primary_dark-700">{reactions["love"].length}</span>
         </button>
         <button
-          className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200"
+          className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200 dark:hover:bg-[#293548]"
           onClick={() => {
             postDispatch(addReaction({ postId, reaction: "rocket" }));
             if (isBookmarked(postId)) {
@@ -79,10 +79,10 @@ export const ViewPost = ({ post }) => {
             }
           }}
         >
-          🚀 <span>{reactions["rocket"].length}</span>
+          🚀 <span className="dark:text-primary_dark-700">{reactions["rocket"].length}</span>
         </button>
         <button
-          className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200"
+          className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200 dark:hover:bg-[#293548]"
           onClick={() => {
             postDispatch(addReaction({ postId, reaction: "celebrate" }));
             if (isBookmarked(postId)) {
@@ -90,10 +90,10 @@ export const ViewPost = ({ post }) => {
             }
           }}
         >
-          🎉 <span>{reactions["celebrate"].length}</span>
+          🎉 <span className="dark:text-primary_dark-700">{reactions["celebrate"].length}</span>
         </button>
         <button
-          className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200"
+          className="w-max h-max p-2 transition duration-200 rounded-md hover:bg-pink-200 dark:hover:bg-[#293548]"
           onClick={() => {
             postDispatch(addReaction({ postId, reaction: "confused" }));
             if (isBookmarked(postId)) {
@@ -101,7 +101,7 @@ export const ViewPost = ({ post }) => {
             }
           }}
         >
-          👀 <span>{reactions["confused"].length}</span>
+          👀 <span className="dark:text-primary_dark-700">{reactions["confused"].length}</span>
         </button>
       </div>
     </div>

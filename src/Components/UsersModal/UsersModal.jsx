@@ -16,17 +16,17 @@ export const UsersModal = ({ users, setShowModal, title }) => {
       onClick={() => setShowModal(false)}
     >
       <div
-        className="w-full sm:w-3/4 md:w-2/5 overflow-y-auto bg-white shadow-2xl drop-shadow-2xl"
+        className="w-full sm:w-3/4 md:w-2/5 overflow-y-auto bg-white shadow-2xl drop-shadow-2xl dark:bg-[#1e293b] dark:text-primary_dark-700"
         style={{ maxHeight: "80%" }}
         onClick={(evt) => evt.stopPropagation()}
       >
-        <div className="w-full text-center font-semibold text-lg py-2 border-0 border-b-2 border-primary-700">
+        <div className="w-full text-center font-semibold text-lg py-2 border-0 border-b-2 border-primary-700 dark:border-primary_dark-700">
           <h1>{title}</h1>
         </div>
         {users.map(
           ({ _id, firstName, lastName, profileImageUrl, userName }) => (
             <div
-              className="w-full p-2 border-0 border-b-2 border-primary-700 flex"
+              className="w-full p-2 border-0 border-b-2 border-primary-700 dark:border-primary_dark-700 flex"
               key={_id}
             >
               <div className="w-1/4 h-full">

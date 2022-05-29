@@ -58,7 +58,7 @@ export const Signup = () => {
         <Form>
           <FormContainer>
             <InputGroup>
-              <label htmlFor="firstName">First Name</label>
+              <label className="dark:text-white" htmlFor="firstName">First Name</label>
               <Field
                 type="text"
                 id="firstName"
@@ -68,7 +68,7 @@ export const Signup = () => {
               <ErrorMessage component={StyledError} name="firstName" />
             </InputGroup>
             <InputGroup>
-              <label htmlFor="lastName">Last Name</label>
+              <label className="dark:text-white" htmlFor="lastName">Last Name</label>
               <Field
                 type="text"
                 id="lastName"
@@ -78,7 +78,7 @@ export const Signup = () => {
               <ErrorMessage component={StyledError} name="lastName" />
             </InputGroup>
             <InputGroup>
-              <label htmlFor="userName">User Name</label>
+              <label className="dark:text-white" htmlFor="userName">User Name</label>
               <Field
                 type="text"
                 id="userName"
@@ -88,12 +88,12 @@ export const Signup = () => {
               <ErrorMessage component={StyledError} name="userName" />
             </InputGroup>
             <InputGroup>
-              <label htmlFor="email">Email</label>
+              <label className="dark:text-white" htmlFor="email">Email</label>
               <Field type="email" id="email" name="email" autoComplete="off" />
               <ErrorMessage component={StyledError} name="email" />
             </InputGroup>
             <InputGroup>
-              <label htmlFor="password">Password</label>
+              <label className="dark:text-white" htmlFor="password">Password</label>
               <Field
                 type="text"
                 id="password"

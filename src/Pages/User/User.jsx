@@ -25,8 +25,8 @@ export const User = () => {
   const [showFollowing, setShowFollowing] = useState(false);
 
   return (
-    <div className="w-100 min-h-screen">
-      <div className="w-100 min-h-screen md:w-4/5 lg:w-2/4 md:mx-auto bg-white p-4 shadow-xl">
+    <div className="w-100 min-h-screen dark:bg-[#0f172a]">
+      <div className="w-100 min-h-screen md:w-4/5 lg:w-2/4 md:mx-auto bg-white dark:bg-[#1f2a43] p-4 shadow-xl">
         {status === "loading" ? (
           <h1>Loading...</h1>
         ) : (
@@ -49,7 +49,7 @@ export const User = () => {
                   />
                 )}
                 <div className="relative h-auto overflow-hidden">
-                  <span className="w-4/6 flex justify-between items-center text-primary-700">
+                  <span className="w-4/6 flex justify-between items-center text-primary-700 dark:text-primary_dark-700">
                     <MdEdit />
                     Edit Photo
                   </span>
@@ -83,14 +83,14 @@ export const User = () => {
               </Button>
             </div>
             <div className="w-100">
-              <h1 className="text-lg">
+              <h1 className="text-lg dark:text-white">
                 {firstName} {lastName}
               </h1>
               <p className="text-gray-500">@{userName}</p>
               <div className="w-100">
                 <span
                   role={"button"}
-                  className="mr-3"
+                  className="mr-3 dark:text-primary_dark-700"
                   onClick={() => followers.length > 0 && setShowFollowers(true)}
                 >
                   {followers.length}{" "}
@@ -105,6 +105,7 @@ export const User = () => {
                 )}
                 <span
                   role={"button"}
+                  className="dark:text-primary_dark-700"
                   onClick={() => following.length > 0 && setShowFollowing(true)}
                 >
                   {following.length} following
@@ -122,7 +123,7 @@ export const User = () => {
         )}
         {status === "fulfilled" && (
           <>
-            <h1 className="text-primary-700 font-semibold text-lg text-center">
+            <h1 className="text-primary-700 dark:text-primary_dark-700 font-semibold text-lg text-center">
               Bookmarks
             </h1>
             <div className="w-full md:w-4/5 mx-auto">

@@ -5,7 +5,7 @@
 
 @layer components {
   .form__container {
-    @apply w-96 flex flex-col justify-evenly border p-2 px-4 border-solid rounded-md shadow-lg;
+    @apply w-full sm:w-[30rem] flex flex-col mx-auto justify-evenly border p-2 px-4 border-solid rounded-md shadow-lg;
   }
   .input__group {
     @apply flex flex-col my-2;
@@ -23,10 +23,10 @@
     @apply underline font-semibold;
   }
   .flex__center {
-    @apply w-screen h-screen flex items-center justify-center;
+    @apply w-full p-10 overflow-y-auto h-screen ;
   }
   .styled__error {
-    @apply font-bold text-sm text-red-400 tracking-widest mb-2;
+    @apply font-bold text-sm text-red-400 tracking-widest mb-2 dark:text-primary-700;
   }
 }
 

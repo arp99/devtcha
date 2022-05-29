@@ -117,6 +117,7 @@ export const userSlice = createSlice({
     },
     [getUserData.rejected]: (state) => {
       state.status = state.error = "error";
+      window.location.reload();
     },
     [updateProfileImage.pending]: (state) => {
       state.profileImageStatus = "loading";

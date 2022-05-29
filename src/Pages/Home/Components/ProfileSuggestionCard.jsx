@@ -24,7 +24,7 @@ export const ProfileSuggestionCard = ({
 
   return (
     <div
-      className="w-full p-2 border-0 border-b-2 border-primary-700 flex"
+      className="w-full p-2 border-0 border-b-2 border-primary-700 dark:border-primary_dark-700 flex"
       key={_id}
     >
       <div className="w-1/4 h-full">
@@ -40,7 +40,7 @@ export const ProfileSuggestionCard = ({
       </div>
       <div className=" w-full h-full flex md:flex-col lg:flex-row justify-between">
         <div>
-          <p className="font-semibold">
+          <p className="font-semibold dark:text-white">
             {firstName} {lastName}
           </p>
           <p className="text-gray-600">@{userName}</p>

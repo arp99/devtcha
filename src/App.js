@@ -32,7 +32,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="App">
+    <div className="App dark:bg-[#0f172a]">
       <ToastContainer limit={1} autoClose={1500} />
       <Routes>
         <Route
