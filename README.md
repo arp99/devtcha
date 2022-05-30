@@ -1,6 +1,6 @@
 # [Devtcha](https://devtcha-frontend.netlify.app/)
 
-A Social Media app for the lovely and hardworking developers 😍
+A Social Media app where you can post your thoughts, follow people to see what they are thinking 😍
 
 ## **Local Setup**
 
